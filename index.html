@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Interacción Dinámica de Componentes</title>
+    <style>
+       
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+#interactiveComponent {
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#interactiveComponent input, #interactiveComponent button {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+#interactiveComponent button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#interactiveComponent button:hover {
+    background-color: #0056b3;
+}
+
+
+#displayComponent {
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#displayText {
+    color: #333;
+    font-size: 16px;
+}
+
+    </style>
+</head>
+<body>
+
+
+
+<div id="interactiveComponent">
+    <input type="text" id="userInput" placeholder="Escribe algo aquí">
+    <button id="myButton">Enviar</button>
+</div>
+
+<div id="displayComponent">
+    <p id="displayText">Esperando interacción...</p>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+
+        document.getElementById("myButton").addEventListener("click", function() {
+            const userInput = document.getElementById("userInput").value;
+            const customEvent = new CustomEvent("myCustomEvent", {
+                detail: { message: userInput }
+            });
+            document.dispatchEvent(customEvent);
+        });
+
+
+        document.addEventListener("myCustomEvent", function(e) {
+            document.getElementById("displayText").textContent = e.detail.message;
+        });
+    });
+
+</script>
+
+</body>
+</html>
